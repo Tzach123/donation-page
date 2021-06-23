@@ -1,0 +1,16 @@
+{
+  "name": "donation-page",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://dagshub.com/Tzach123/DAGsHub-test.git"
+  },
+  "description": ""
+}
