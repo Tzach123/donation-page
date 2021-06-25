@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import axios from 'axios'
 import {
   Card,
   Button,
@@ -18,9 +19,24 @@ import { MdAttachMoney } from 'react-icons/md'
 
 const DonationScreen = () => {
   const [money, setMoney] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const clickHandler = async () => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+      const { data } = await axios.post('/api/donations', { money }, config)
+      setErrorMessage('')
+      alert('Success !')
+    } catch (err) {
+      setErrorMessage(err.response.data.message)
+    }
+  }
 
   const now = 70
-
   return (
     <div>
       <Backdrop>
@@ -36,6 +52,15 @@ const DonationScreen = () => {
         </GridContainer>
       </Backdrop>
       <FormContainer>
+        <Row className=' p-3 m-auto w-75'>
+          <Col>
+            {errorMessage && (
+              <Alert className='text-center' variant='danger'>
+                {errorMessage}
+              </Alert>
+            )}
+          </Col>
+        </Row>
         <Card className='p-3 m-auto w-75'>
           <Card.Body>
             <Alert className='text-center p-2' variant='info'>
@@ -62,7 +87,6 @@ const DonationScreen = () => {
             <div>
               <Row className='justify-content-md-center'>
                 <Col md='auto'>
-                  {' '}
                   <InputGroup size='lg' className='mb-3'>
                     <InputGroup.Text>
                       <MdAttachMoney />
@@ -78,8 +102,12 @@ const DonationScreen = () => {
               </Row>
               <Row className='justify-content-md-center'>
                 <Col md='auto'>
-                  {' '}
-                  <Button variant='success' className='btn-block'>
+                  <Button
+                    type='button'
+                    variant='success'
+                    className='btn-block'
+                    onClick={clickHandler}
+                  >
                     Give Now
                   </Button>
                 </Col>
