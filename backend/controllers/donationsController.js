@@ -19,7 +19,6 @@ export const addToFile = async (req, res) => {
       }
     })
   } else {
-    console.log(money)
     res.status(401).json({ message: 'The num must be greater than 0 !' })
   }
 }
